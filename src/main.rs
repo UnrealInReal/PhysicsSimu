@@ -8,7 +8,7 @@ fn main() {
 
     App::new()
         .add_plugins(DefaultPlugins)
-        .insert_resource(Scene::one_sphere_at_height(10.))
+        .insert_resource(Scene::complicate_scene())
         .add_startup_system(setup)
         .add_system(update_physics.in_schedule(CoreSchedule::FixedUpdate))
         .insert_resource(FixedTime::new_from_secs(FIXED_TIMESTEP))
@@ -37,36 +37,47 @@ fn setup(
         ..default()
     });
     // sphere
-    commands.spawn((
-        PbrBundle {
-            mesh: meshes.add(Mesh::from(shape::UVSphere {
-                radius: scene.spheres.first().unwrap().radius,
-                ..default()
-            })),
-            material: materials.add(Color::rgb(0.8, 0.7, 0.6).into()),
-            transform: Transform::from_translation(
-                scene
-                    .spheres
-                    .first()
-                    .unwrap()
-                    .state
-                    .translation
-                    .t
-                    .to_array()
+    for (i, sphere) in scene.spheres.iter().enumerate() {
+        commands.spawn((
+            PbrBundle {
+                mesh: meshes.add(Mesh::from(shape::UVSphere {
+                    radius: sphere.radius,
+                    ..default()
+                })),
+                material: materials.add(
+                    Color::rgb(
+                        0.1 + sphere.radius / 2.0,
+                        0.2 + sphere.radius / 3.0,
+                        0.9 - sphere.radius / 4.0,
+                    )
                     .into(),
-            ),
+                ),
+                transform: Transform::from_translation(
+                    sphere.state.translation.t.to_array().into(),
+                ),
+                ..default()
+            },
+            PhysicsSphere { index: i },
+        ));
+    }
+
+    // light
+    commands.spawn(PointLightBundle {
+        point_light: PointLight {
+            intensity: 2000.0,
+            shadows_enabled: true,
             ..default()
         },
-        PhysicsSphere { index: 0 },
-    ));
-    // light
+        transform: Transform::from_xyz(5., 10.0, 5.),
+        ..default()
+    });
     commands.spawn(PointLightBundle {
         point_light: PointLight {
             intensity: 1500.0,
             shadows_enabled: true,
             ..default()
         },
-        transform: Transform::from_xyz(4.0, 8.0, 4.0),
+        transform: Transform::from_xyz(-10., 10.0, 10.),
         ..default()
     });
     // camera

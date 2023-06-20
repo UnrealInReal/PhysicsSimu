@@ -24,7 +24,7 @@ pub fn sphere_plane_collision_detect(
 }
 
 pub fn sphere_plane_collision_response(state: &PhysicsState, plane: &Plane) -> PhysicsState {
-    let bouness = 0.9;
+    let bouness = 0.95;
     let friction = 0.01;
     let v_n = state
         .linear_velocity

@@ -27,6 +27,47 @@ impl Scene {
         }
     }
 
+    pub fn complicate_scene() -> Self {
+        Self {
+            spheres: vec![
+                Sphere {
+                    radius: 1.0,
+                    state: PhysicsState::new(Vec3::Y * 10. - Vec3::X * 10., Vec3::X * 2.0),
+                },
+                Sphere {
+                    radius: 1.5,
+                    state: PhysicsState::new(Vec3::Y * 10. + Vec3::X * 10., -Vec3::X * 5.0),
+                },
+                Sphere {
+                    radius: 0.5,
+                    state: PhysicsState::new(Vec3::Y * 10. - Vec3::X * 10., Vec3::Z * 8.0),
+                },
+            ],
+            planes: vec![
+                Plane {
+                    origin: Translation { t: Vec3::ZERO },
+                    normal: Vec3::Y,
+                },
+                Plane {
+                    origin: Translation { t: Vec3::X * 12.5 },
+                    normal: -Vec3::X,
+                },
+                Plane {
+                    origin: Translation { t: -Vec3::X * 12.5 },
+                    normal: Vec3::X,
+                },
+                Plane {
+                    origin: Translation { t: Vec3::Z * 12.5 },
+                    normal: -Vec3::Z,
+                },
+                Plane {
+                    origin: Translation { t: -Vec3::Z * 12.5 },
+                    normal: Vec3::Z,
+                },
+            ],
+        }
+    }
+
     pub fn display(&self) {
         println!("{self:?}");
     }
