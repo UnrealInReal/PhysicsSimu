@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use physics_simu::{scene::Scene, simulation::update};
+use physics_simu::{scene::Scene, simulation::physics_update};
 
 fn main() {
     println!("Hello, physics!");
@@ -78,7 +78,7 @@ fn update_physics(
     mut scene: ResMut<Scene>,
     mut query: Query<(&mut Transform, &PhysicsSphere)>,
 ) {
-    update(&mut scene, time.delta_seconds());
+    physics_update(&mut scene, time.delta_seconds()); // TODO: a fixed update for physics
     for (mut t, s) in &mut query {
         t.translation = scene
             .spheres

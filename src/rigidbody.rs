@@ -1,16 +1,14 @@
-use glam::Vec3;
+use crate::math::Vec3;
+use crate::physics_state::{PhysicsState, Translation};
 
-use crate::components::PhysicsState;
-use bevy::prelude::*;
-
-#[derive(Debug, Component)]
+#[derive(Debug)]
 pub struct Sphere {
     pub radius: f32,
     pub state: PhysicsState,
 }
 
-#[derive(Debug, Component)]
+#[derive(Debug)]
 pub struct Plane {
-    pub origin: Vec3,
+    pub origin: Translation,
     pub normal: Vec3,
 }
