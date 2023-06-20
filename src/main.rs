@@ -5,7 +5,7 @@ fn main() {
 
     let mut scene = Scene::one_sphere_at_100_height();
 
-    for _ in 0..10 {
-        update(&mut scene, 1.);
+    for _ in 0..1000 {
+        update(&mut scene, 0.1);
     }
 }

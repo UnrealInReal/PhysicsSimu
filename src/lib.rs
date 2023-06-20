@@ -1,3 +1,4 @@
+pub mod collision;
 pub mod components;
 pub mod integrate;
 pub mod rigidbody;

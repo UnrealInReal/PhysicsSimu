@@ -1,9 +1,13 @@
-use crate::{components::PhysicsState, rigidbody::Sphere};
+use crate::{
+    components::PhysicsState,
+    rigidbody::{Plane, Sphere},
+};
 use glam::Vec3;
 
 #[derive(Debug)]
 pub struct Scene {
     pub spheres: Vec<Sphere>,
+    pub planes: Vec<Plane>,
 }
 
 impl Scene {
@@ -12,6 +16,10 @@ impl Scene {
             spheres: vec![Sphere {
                 radius: 1.0,
                 state: PhysicsState::new(Vec3::Y * 100., Vec3::ZERO),
+            }],
+            planes: vec![Plane {
+                origin: Vec3::ZERO,
+                normal: Vec3::Y,
             }],
         }
     }
