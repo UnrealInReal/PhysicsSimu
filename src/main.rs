@@ -81,7 +81,7 @@ fn update_physics(
     mut scene: ResMut<Scene>,
     mut query: Query<(&mut Transform, &PhysicsSphere)>,
 ) {
-    physics_update(&mut scene, fixed_time.period.as_secs_f32()); // TODO: a fixed update for physics
+    physics_update(&mut scene, fixed_time.period.as_secs_f32());
     for (mut t, s) in &mut query {
         t.translation = scene
             .spheres
