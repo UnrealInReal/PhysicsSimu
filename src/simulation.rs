@@ -18,12 +18,12 @@ pub fn update(scene: &mut Scene, dt: f32) {
                 sphere.radius,
                 &sphere.state,
                 &state_new,
-                &scene.planes.first().unwrap(),
+                scene.planes.first().unwrap(),
             ) {
                 timestep *= f;
                 state_new = integrate(&sphere.state, timestep, G);
                 state_new =
-                    sphere_plane_collision_response(&state_new, &scene.planes.first().unwrap());
+                    sphere_plane_collision_response(&state_new, scene.planes.first().unwrap());
             }
 
             timestep_remaining -= timestep;

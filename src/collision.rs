@@ -20,6 +20,6 @@ pub fn sphere_plane_collision_detect(
     }
 }
 
-pub fn sphere_plane_collision_response(state: &PhysicsState, plane: &Plane) -> PhysicsState {
+pub fn sphere_plane_collision_response(state: &PhysicsState, _plane: &Plane) -> PhysicsState {
     PhysicsState::new(state.translation.t, -state.linear_velocity.v * 0.9)
 }
