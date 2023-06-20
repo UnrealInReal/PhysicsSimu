@@ -18,7 +18,7 @@ impl Scene {
         Self {
             spheres: vec![Sphere {
                 radius: 1.0,
-                state: PhysicsState::new(Vec3::Y * height, Vec3::ZERO),
+                state: PhysicsState::new(Vec3::Y * height - Vec3::X * 10., Vec3::X * 2.0),
             }],
             planes: vec![Plane {
                 origin: Translation { t: Vec3::ZERO },
