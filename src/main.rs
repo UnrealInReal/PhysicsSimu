@@ -1,6 +1,8 @@
 use bevy::prelude::*;
 use physics_simu::{scene::Scene, simulation::physics_update};
 
+const FIXED_TIMESTEP: f32 = 1. / 60.;
+
 fn main() {
     println!("Hello, physics!");
 
@@ -8,7 +10,8 @@ fn main() {
         .add_plugins(DefaultPlugins)
         .insert_resource(Scene::one_sphere_at_height(10.))
         .add_startup_system(setup)
-        .add_system(update_physics)
+        .add_system(update_physics.in_schedule(CoreSchedule::FixedUpdate))
+        .insert_resource(FixedTime::new_from_secs(FIXED_TIMESTEP))
         .run();
 }
 
@@ -74,11 +77,11 @@ fn setup(
 }
 
 fn update_physics(
-    time: Res<Time>,
+    fixed_time: Res<FixedTime>,
     mut scene: ResMut<Scene>,
     mut query: Query<(&mut Transform, &PhysicsSphere)>,
 ) {
-    physics_update(&mut scene, time.delta_seconds()); // TODO: a fixed update for physics
+    physics_update(&mut scene, fixed_time.period.as_secs_f32()); // TODO: a fixed update for physics
     for (mut t, s) in &mut query {
         t.translation = scene
             .spheres
