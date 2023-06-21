@@ -24,14 +24,18 @@ pub fn sphere_plane_collision_detect(
 }
 
 pub fn sphere_plane_collision_response(state: &PhysicsState, plane: &Plane) -> PhysicsState {
-    let bouness = 0.95;
+    let bouness = 0.9;
     let friction = 0.01;
     let v_n = state
         .linear_velocity
         .v
         .project_onto_normalized(plane.normal);
     let v_t = state.linear_velocity.v - v_n;
-    let v_n_next = -bouness * v_n;
+    let v_n_next = if v_n.length().abs() < 3. {
+        0.1 * v_n
+    } else {
+        -bouness * v_n
+    };
     let v_t_next = v_t * (1. - 1.0_f32.min(friction * v_n.length() / v_t.length()));
     PhysicsState::new(state.translation.t, v_n_next + v_t_next)
 }

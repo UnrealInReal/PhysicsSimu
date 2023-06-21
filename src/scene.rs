@@ -32,15 +32,18 @@ impl Scene {
             spheres: vec![
                 Sphere {
                     radius: 1.0,
-                    state: PhysicsState::new(Vec3::Y * 10. - Vec3::X * 10., Vec3::X * 2.0),
+                    state: PhysicsState::new(Vec3::Y * 10. - Vec3::X * 10., Vec3::X * 20.0),
                 },
                 Sphere {
                     radius: 1.5,
-                    state: PhysicsState::new(Vec3::Y * 10. + Vec3::X * 10., -Vec3::X * 5.0),
+                    state: PhysicsState::new(
+                        Vec3::Y * 10. + Vec3::X * 10. + Vec3::Z * 5.,
+                        -Vec3::X * 50.0,
+                    ),
                 },
                 Sphere {
                     radius: 0.5,
-                    state: PhysicsState::new(Vec3::Y * 10. - Vec3::X * 10., Vec3::Z * 8.0),
+                    state: PhysicsState::new(Vec3::Y * 10. - Vec3::X * 10., Vec3::Z * 80.0),
                 },
             ],
             planes: vec![
